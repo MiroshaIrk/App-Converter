@@ -1,8 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+@mixin flex($justify: center) {
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+}
+
+@mixin input {
+  background: #2b2440;
+  border-radius: 12px;
+  font-weight: 600;
+  line-height: 19px;
+  color: #f5f5f5;
+  border: 2px solid rgba(255, 88, 95, 0.35);
+  padding: 14px;
+}
+
+@mixin button {
+  background: linear-gradient(97.46deg, #ff585f 3.28%, #fa5897 95.35%);
+  border-radius: 12px;
+  font-size: 17px;
+  line-height: 21px;
+  padding: 12px 30px;
+  cursor: pointer;
+  margin-left: auto;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(97.46deg, #c03949 3.28%, #b33263 95.35%);
+    opacity: 0;
+    border-radius: 12px;
+    transition: opacity 0.3s ease;
+  }
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  background: #1f2742;
+  background: #222e53;
   font-family: "Inter", "Roboto", sans-serif;
   overflow-x: hidden;
   color: #f1f1f1;
@@ -29,4 +75,186 @@ input[type="number"]:hover,
 input[type="number"]:focus {
   appearance: none;
   -moz-appearance: textfield;
+}
+
+.container {
+  width: 1024px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  @include flex;
+  flex-direction: column;
+  row-gap: 28px;
+  padding: 30px 0;
+}
+
+.converter-title {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 27px;
+  margin: 0;
+}
+
+.main {
+  width: 100%;
+  position: relative;
+  &::after,
+  &::before {
+    position: absolute;
+    content: "";
+    display: block;
+  }
+
+  &::before {
+    width: 220px;
+    height: 220px;
+    bottom: 0;
+    left: -180px;
+    background-image: url(../images/bitcoin.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
+
+  &::after {
+    width: 144px;
+    height: 144px;
+    top: -72px;
+    right: -28px;
+    background-image: url(../images/ethereum.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+  }
+}
+
+.wrapper {
+  background: linear-gradient(180deg, #1d2535 0%, rgba(33, 25, 56, 0.2) 100%);
+  backdrop-filter: blur(5px);
+  border-radius: 12px;
+  padding: 11px 50px 25px;
+  width: 100%;
+  min-height: 314px;
+}
+
+.tabs {
+  @include flex;
+  position: relative;
+  &::before {
+    content: "";
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    width: 70%;
+    height: 2px;
+    min-width: 660px;
+    background: linear-gradient(90deg, rgba(217, 217, 217, 0) 12.5%, #ffffff 51.57%, rgba(255, 255, 255, 0) 86.98%);
+    opacity: 0.2;
+  }
+}
+
+.tab {
+  @include flex;
+  cursor: pointer;
+  column-gap: 10px;
+  padding: 15px 10px;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(255, 88, 95, 0) 0%, #fa5897 51.57%, rgba(255, 88, 95, 0) 100%);
+    height: 2px;
+    width: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.2s ease;
+  }
+  &-title {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  &-icon {
+    width: 18px;
+    height: 18px;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+  &.active {
+    opacity: 1;
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.form {
+  margin-top: 40px;
+
+  label {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #b7b7b7;
+    margin-bottom: 10px;
+    padding-left: 16px;
+  }
+  &-inputs {
+    @include flex;
+    gap: 25px;
+  }
+  &-group {
+    width: 320px;
+
+    input {
+      @include input;
+      width: 100%;
+    }
+  }
+  &-selects {
+    @include flex;
+    column-gap: 25px;
+    align-items: flex-end;
+  }
+  &-select {
+    flex-grow: 1;
+    &__icon {
+      @include flex;
+      background: #2b2440;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.25s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  &-info {
+    @include flex(space-between);
+    margin-top: 25px;
+    position: relative;
+  }
+  &-submit {
+    @include button;
+    & span {
+      position: relative;
+      z-index: 3;
+    }
+  }
+  &-results {
+  }
 }
