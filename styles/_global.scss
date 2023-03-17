@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: $body-bg;
+  font-family: "Inter", "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  overflow-x: hidden;
+  color: $default;
+}
+
+input,
+button {
+  background: none;
+  outline: none;
+  border: none;
+  font-family: "Inter", "Roboto", sans-serif;
+  font-size: 16px;
+  color: $default;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.container {
+  width: 1024px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  @include flex;
+  flex-direction: column;
+  row-gap: 28px;
+  padding: 30px 0;
+
+  @media screen and (max-width: 1100px) {
+    width: 100vw;
+    padding: 0 5px;
+  }
+  @media screen and (max-width: 700px) {
+    padding: 20px 5px;
+  }
+}

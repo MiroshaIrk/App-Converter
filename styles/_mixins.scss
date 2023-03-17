@@ -1,0 +1,42 @@
+@mixin flex($justify: center) {
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+}
+
+@mixin input {
+  background: $input-bg;
+  border-radius: 12px;
+  font-weight: 600;
+  line-height: 19px;
+  color: $default;
+  border: 2px solid $input-border;
+  padding: 14px;
+}
+
+@mixin button {
+  background: $button-bg;
+  border-radius: 12px;
+  font-size: 17px;
+  line-height: 21px;
+  padding: 12px 30px;
+  cursor: pointer;
+  margin-left: auto;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $button-bg-hover;
+    opacity: 0;
+    border-radius: inherit;
+    transition: opacity 0.3s ease;
+  }
+  &:hover::after {
+    opacity: 1;
+  }
+}
