@@ -1,3 +1,4 @@
+@import "colors";
 * {
   box-sizing: border-box;
 }
@@ -9,17 +10,17 @@
 }
 
 @mixin input {
-  background: #2b2440;
+  background: $input-bg;
   border-radius: 12px;
   font-weight: 600;
   line-height: 19px;
-  color: #f5f5f5;
-  border: 2px solid rgba(255, 88, 95, 0.35);
+  color: $descr-text;
+  border: 2px solid $input-border;
   padding: 14px;
 }
 
 @mixin button {
-  background: linear-gradient(97.46deg, #ff585f 3.28%, #fa5897 95.35%);
+  background: $button-bg;
   border-radius: 12px;
   font-size: 17px;
   line-height: 21px;
@@ -35,9 +36,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(97.46deg, #c03949 3.28%, #b33263 95.35%);
+    background: $button-bg-hover;
     opacity: 0;
-    border-radius: 12px;
+    border-radius: inherit;
     transition: opacity 0.3s ease;
   }
   &:hover::after {
@@ -48,10 +49,12 @@
 body {
   margin: 0;
   padding: 0;
-  background: #222e53;
+  background: $body-bg;
   font-family: "Inter", "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
   overflow-x: hidden;
-  color: #f1f1f1;
+  color: $default;
 }
 
 input,
@@ -61,7 +64,7 @@ button {
   border: none;
   font-family: "Inter", "Roboto", sans-serif;
   font-size: 16px;
-  color: #f1f1f1;
+  color: $default;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -133,7 +136,7 @@ input[type="number"]:focus {
 }
 
 .wrapper {
-  background: linear-gradient(180deg, #1d2535 0%, rgba(33, 25, 56, 0.2) 100%);
+  background: $wrapper-bg;
   backdrop-filter: blur(5px);
   border-radius: 12px;
   padding: 11px 50px 25px;
@@ -205,7 +208,7 @@ input[type="number"]:focus {
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
-    color: #b7b7b7;
+    color: $descr-text;
     margin-bottom: 10px;
     padding-left: 16px;
   }
@@ -230,7 +233,7 @@ input[type="number"]:focus {
     flex-grow: 1;
     &__icon {
       @include flex;
-      background: #2b2440;
+      background: $item-bg;
       width: 52px;
       height: 52px;
       border-radius: 50%;
@@ -250,11 +253,221 @@ input[type="number"]:focus {
   }
   &-submit {
     @include button;
-    & span {
+    span {
       position: relative;
       z-index: 3;
     }
   }
   &-results {
+    @include flex;
+    column-gap: 15px;
+    opacity: 0;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+  &-result {
+    &__equals {
+      background: $item-bg;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      @include flex;
+    }
+    &__item {
+      background: $item-bg;
+      border-radius: 12px;
+      padding: 12px;
+      display: grid;
+      align-items: center;
+      column-gap: 8px;
+      width: max-content;
+      grid-template-columns: 32px 1fr;
+      grid-template-areas: "icon titles" "icon amount";
+      &.from {
+        .icon {
+          background: $icon-bg-down;
+          box-shadow: 0px 0px 0px 2px rgba(252, 87, 130, 0.25);
+        }
+      }
+      &.to {
+        .icon {
+          background: $icon-bg-up;
+          box-shadow: 0px 0px 0px 2px rgba(31, 196, 175, 0.25);
+        }
+      }
+      .icon {
+        @include flex;
+        grid-area: icon;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+      &-titles {
+        grid-area: titles;
+        @include flex(start);
+        column-gap: 10px;
+      }
+      &-title {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+      }
+      &-full {
+        font-size: 12px;
+        line-height: 15px;
+        color: $descr-text;
+      }
+      &-value {
+        grid-area: amount;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 23px;
+        margin-top: 6px;
+      }
+    }
+  }
+}
+
+.rate {
+  &-information {
+    @include flex(space-between);
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: $descr-text;
+  }
+  &-conversion {
+    color: $default;
+  }
+}
+
+.select {
+  cursor: pointer;
+  min-width: 240px;
+  @include input;
+}
+
+.currency {
+  &-wrapper {
+    margin-top: 40px;
+  }
+  &-item {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    border-radius: 12px;
+    padding: 14px 20px;
+    border: 2px solid $currency-border;
+    background: none;
+  }
+  &-titles {
+    @include flex(start);
+    column-gap: 19px;
+  }
+  &-title {
+    font-weight: 600;
+    line-height: 19px;
+    min-width: 40px;
+  }
+  &-full {
+    font-size: 12px;
+    line-height: 15px;
+    color: $descr-text;
+  }
+  &-amount {
+    text-align: center;
+    font-weight: 700;
+    line-height: 22px;
+  }
+  &-single {
+    position: relative;
+
+    .currency-item {
+      height: 69px;
+    }
+
+    .select {
+      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      right: 10px;
+      width: calc(100% - 20px);
+      max-width: 290px;
+    }
+    &.active {
+      .currency-button {
+        display: none;
+      }
+
+      .select {
+        display: block;
+      }
+    }
+  }
+  &-action {
+    text-align: right;
+  }
+  &-current {
+    border: none;
+    background: $currency-bg;
+
+    .currency {
+      &-full {
+        color: $item-bg;
+      }
+    }
+  }
+  &-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+  &-button {
+    border: 1px solid $descr-text;
+    color: $descr-text;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    width: max-content;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: border 0.25s, color 0.25s;
+    text-transform: capitalize;
+    &:hover {
+      border: 1px solid $default;
+      color: $default;
+    }
+  }
+  &-add {
+    @include flex(end);
+    margin-top: 20px;
+    &__button {
+      @include button;
+
+      span {
+        position: relative;
+        z-index: 3;
+      }
+    }
+    .select {
+      display: none;
+      padding: 11px 14px;
+    }
+    &.active {
+      .selict {
+        display: block;
+      }
+
+      .currency-add__button {
+        display: none;
+      }
+    }
   }
 }
