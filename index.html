@@ -21,13 +21,13 @@
         <div class="wrapper">
 
           <div class="tabs">
-            <div class="tab active">
+            <div class="tab active" data-tab="convert">
               <div class="tab-icon">
                 <img src="./images/convert.svg" alt="">
               </div>
               <div class="tab-title">Convert</div>
             </div>
-            <div class="tab">
+            <div class="tab" data-tab="single">
               <div class="tab-icon">
                 <img src="./images/currency.svg" alt="">
               </div>
@@ -35,7 +35,7 @@
             </div>
           </div>
 
-          <div class="content">
+          <div class="content show" data-child="convert">
             <form class="form">
 
               <div class="form-inputs">
@@ -72,47 +72,27 @@
                   <span></span>
                 </div>
 
-                <div class="form-results show">
-                  <div class="form-result__item from" id="resultFrom">
-                    <div class="form-result__item-icon icon">
-                      <img src="./images/arrow-down.svg" alt="">
-                    </div>
-
-                    <div class="form-result__item-titles">
-                      <div class="form-result__item-title">USD</div>
-                      <div class="form-result__item-full">American dollar</div>
-                    </div>
-                    <div class="form-result__item-value">1.00</div>
-                  </div>
+                <div class="form-results">
+                  <div class="form-result__item from" id="resultFrom"></div>
 
                   <div class="form-result__equals">
                     <img src="./images/equals.svg" alt="">
                   </div>
 
-                  <div class="form-result__item to" id="resultTo">
-                    <div class="form-result__item-icon icon">
-                      <img src="./images/arrow-up.svg" alt="">
-                    </div>
-
-                    <div class="form-result__item-titles">
-                      <div class="form-result__item-title">EUR</div>
-                      <div class="form-result__item-full">Euro</div>
-                    </div>
-                    <div class="form-result__item-value">0.99</div>
-                  </div>
+                  <div class="form-result__item to" id="resultTo"></div>
                 </div>
 
                 <button type="submit" class="form-submit"><span>Convert</span></button>
               </div>
 
               <div class="rate-information">
-                <div class="rate-conversion">$1 = $44</div>
-                <div class="rate-last">Update 16 March 2023</div>
+                <div class="rate-conversion"></div>
+                <div class="rate-last"></div>
               </div>
             </form>
           </div>
 
-          <div class="content">
+          <div class="content" data-child="single">
             <div class="currency-wrapper">
               <div class="currency-single">
                 <select class="select" id="singleSelect">
@@ -161,6 +141,8 @@
       </div>
     </div>
   </main>
+  <script src="./js/main.js" type="module"></script>
+  <script src="./js/events.js" type="module"></script>
 </body>
 
 </html>

@@ -632,4 +632,11 @@ input[type=number]:focus {
 }
 .currency-add.active .currency-add__button {
   display: none;
+}
+
+.content {
+  display: none;
+}
+.content.show {
+  display: block;
 }/*# sourceMappingURL=style.css.map */

@@ -485,3 +485,10 @@
     }
   }
 }
+
+.content {
+  display: none;
+  &.show {
+    display: block;
+  }
+}
