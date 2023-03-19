@@ -407,8 +407,8 @@
     .select {
       display: none;
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 50%;
+      transform: translateY(-50%);
       right: 10px;
       width: calc(100% - 20px);
       max-width: 290px;
@@ -475,7 +475,7 @@
       padding: 11px 14px;
     }
     &.active {
-      .selict {
+      .select {
         display: block;
       }
 

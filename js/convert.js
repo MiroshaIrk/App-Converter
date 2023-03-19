@@ -1,20 +1,20 @@
 'use strict';
 
 import state from "./state.js";
-import { getFullTitle, formatToCurrency, convertTime } from "./utils.js";
 import variables from "./variables.js";
 import { renderResult } from "./markups.js";
+import { getFullTitle, formatToCurrency, convertTime } from "./utils.js";
 
 
 const {
   success,
-  resultFrom,
+  toSelect,
   resultTo,
+  rateLast,
+  resultFrom,
+  fromSelect,
   formResults,
   rateConversion,
-  rateLast,
-  toSelect,
-  fromSelect,
 } = variables;
 
 
@@ -31,8 +31,8 @@ export const handleInput = ({ target: { value, name } }) => {
 
 const insertResults = ({
   base_code: baseCode,
-  target_code: targetCode,
   conversion_rate: rate,
+  target_code: targetCode,
   conversion_result: result,
   time_last_update_utc: time
 }) => {
@@ -42,22 +42,19 @@ const insertResults = ({
     full: getFullTitle(state.codes, baseCode),
   };
   const to = {
-    code: targetCode,
     amount: result,
+    code: targetCode,
     full: getFullTitle(state.codes, targetCode),
   };
-
-  resultFrom.innerHTML = renderResult(from);
-  resultTo.innerHTML = renderResult(to);
-
   const baseValue = formatToCurrency(baseCode, 1);
   const targetValue = formatToCurrency(targetCode, rate);
 
+  resultTo.innerHTML = renderResult(to);
+  resultFrom.innerHTML = renderResult(from);
   rateConversion.innerText = `${baseValue} = ${targetValue}`;
   rateLast.innerText = `Last updated ${convertTime(time)}`;
-
   formResults.classList.add('show');
-}
+};
 
 export const handleSubmit = async (e) => {
   e.preventDefault();
@@ -89,7 +86,6 @@ export const switchCurrencies = () => {
     to: from,
     from: to,
   };
-
   toSelect.value = from;
   fromSelect.value = to;
 };

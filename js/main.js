@@ -1,7 +1,8 @@
 'use strict'
 
-import variables from "./variables.js";
 import state from "./state.js";
+import variables from "./variables.js";
+import { fetchLatest } from "./single.js";
 import { handleChange } from "./convert.js";
 
 
@@ -12,11 +13,14 @@ const renderCodeList = () => {
   selects.forEach(select => {
     state.codes.forEach(([code]) => {
       const element = document.createElement('option');
+
       element.value = code;
       element.innerText = code;
       select.insertAdjacentElement('beforeend', element);
     });
-    select.addEventListener('change', handleChange);
+
+    const name = select.getAttribute('name');
+    name && select.addEventListener('change', handleChange);
   });
 };
 
@@ -25,9 +29,10 @@ export const fetchCodes = async () => {
     const response = await fetch(`${state.url}/codes`);
     const dataCodes = await response.json();
 
-    if (dataCodes.result === 'success') {
+    if (dataCodes.result === success) {
       state.codes = dataCodes.supported_codes;
-      renderCodeList()
+      renderCodeList();
+      fetchLatest();
     }
 
   } catch (err) {

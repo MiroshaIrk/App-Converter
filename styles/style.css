@@ -541,8 +541,8 @@ input[type=number]:focus {
 .currency-single .select {
   display: none;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translateY(-50%);
   right: 10px;
   width: calc(100% - 20px);
   max-width: 290px;
@@ -627,7 +627,7 @@ input[type=number]:focus {
   display: none;
   padding: 11px 14px;
 }
-.currency-add.active .selict {
+.currency-add.active .select {
   display: block;
 }
 .currency-add.active .currency-add__button {

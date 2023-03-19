@@ -2,6 +2,7 @@
 
 export const getFullTitle = (codes, code) => {
   const [, title] = codes.find((item) => item.includes(code));
+
   return title;
 };
 
@@ -18,7 +19,7 @@ export const convertTime = (date) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  }
+  };
 
   return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
-}
+};
